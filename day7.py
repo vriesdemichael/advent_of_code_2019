@@ -3,12 +3,6 @@ from itertools import permutations
 from intcode_computer import IntcodeComputer
 
 
-def run_previous_tests():
-    memories = [
-        [3,9,8,9,10,9,4,9,99,-1,8],
-        [3,9,7,9,10,9,4,9,99,-1,8],
-
-    ]
 
 if __name__ == '__main__':
     all_possible_phase_settings = list(permutations([0, 1, 2, 3, 4]))
