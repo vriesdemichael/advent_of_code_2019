@@ -102,7 +102,9 @@ class TestIntcodeComputer(TestCase):
                     loops += 1
                     for amplifier in amplifiers:
                         signal = amplifier.run(signal)
-
+                        amplifier.output_values = []
+                        # if isinstance(signal, list):
+                        #     signal = signal.pop(0)
                         if amplifier.finished:
                             running = False
 
@@ -112,3 +114,25 @@ class TestIntcodeComputer(TestCase):
             with self.subTest(name):
                 self.assertEqual(best_setting, data[name]['expected_setting'])
                 self.assertEqual(best_output, data[name]['expected_output'])
+
+    def test_day9_1(self):
+        data = {
+            "day 9 part 1 - 1": {
+                'memory': [109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99],
+                'expected_output': [109, 1, 204, -1, 1001, 100, 1, 100, 1008, 100, 16, 101, 1006, 101, 0, 99]
+            },
+            "day 9 part 1 - 2": {
+                'memory': [1102, 34915192, 34915192, 7, 4, 7, 99, 0],
+                'expected_output': 1219070632396864
+            },
+            "day 9 part 1 - 3": {
+                'memory': [104, 1125899906842624, 99],
+                'expected_output': 1125899906842624
+            }
+        }
+        for name in data.keys():
+            computer = IntcodeComputer(data[name]['memory'])
+            test_output = computer.run()
+            expected_output = data[name]['expected_output']
+            with self.subTest(name):
+                self.assertEqual(expected_output, test_output)
